@@ -1,43 +1,41 @@
 package javaBasics;
 
+import org.testng.annotations.Test;
 import java.util.Scanner;
 
 import org.testng.Reporter;
 import org.testng.annotations.Test;
 
 public class Ciclos {
-	
-	
-	
+
 	@Test
 	public void ciclos() {
-		
+
 		int index = 0;
 		int numero = 10;
-		
-		for(int i=0; i<=numero; i++) {
-			
-			Reporter.log("El valor de nuestro indice es FOR: " + i,true);
-			
+
+		for (int i = 0; i <= numero; i++) {
+
+			Reporter.log("El valor de nuestro indice es FOR: " + i, true);
+
 		}
-		
+
 		System.out.println("\n");
-		while(index<=numero) {
-			
-			Reporter.log("El valor de nuestro indice es WHILE: " + index,true);
+		while (index <= numero) {
+
+			Reporter.log("El valor de nuestro indice es WHILE: " + index, true);
 			index++;
 		}
-		
-		
-	}//end ciclo
-	
+
+	}// end ciclo
+
 	@Test
 	public void condicionalSwitch() {
 		Scanner reader = new Scanner(System.in);
 		Reporter.log("Ingresa un numero de mes", true);
 		String mes = reader.next();
 		reader.close();
-		
+
 		switch (mes) {
 		case "1":
 			Reporter.log("Enero", true);
@@ -75,16 +73,11 @@ public class Ciclos {
 		case "12":
 			Reporter.log("Diciembre", true);
 			break;
-			
-			default:
-				Reporter.log("El numero que ingresaste no corresponde a ningun mes [ "+ mes+" ]", true);
-			
-			
-		}//end switch
-		
-		
-		
-		
-	}
 
-}//end class
+		default:
+			Reporter.log("El numero que ingresaste no corresponde a ningun mes [ " + mes + " ]", true);
+
+		}// end switch
+	}// end switch
+
+}// end class
