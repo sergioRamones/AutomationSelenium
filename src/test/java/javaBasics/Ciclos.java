@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 public class Ciclos {
 
-	@Test
+	@Test(priority=2,enabled=true)
 	public void ciclos() {
 
 		int index = 0;
@@ -29,12 +29,12 @@ public class Ciclos {
 
 	}// end ciclo
 
-	@Test
+	@Test(priority=1)
 	public void condicionalSwitch() {
-		Scanner reader = new Scanner(System.in);
+		Scanner reader2 = new Scanner(System.in);
 		Reporter.log("Ingresa un numero de mes", true);
-		String mes = reader.next();
-		reader.close();
+		String mes = reader2.next();
+		
 
 		switch (mes) {
 		case "1":
@@ -78,6 +78,8 @@ public class Ciclos {
 			Reporter.log("El numero que ingresaste no corresponde a ningun mes [ " + mes + " ]", true);
 
 		}// end switch
+		
+		reader2.close();
 	}// end switch
 
 }// end class

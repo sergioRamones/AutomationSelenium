@@ -4,7 +4,6 @@ import org.testng.annotations.Test;
 import java.util.Scanner;
 
 import org.testng.Reporter;
-import org.testng.annotations.Test;
 
 public class promedioDeCalificaciones {
 
@@ -46,7 +45,7 @@ public class promedioDeCalificaciones {
 			Reporter.log("Ingresa la calificacion 2", true);
 			cal2 = reader.nextDouble();
 		} while (cal1 < 0 || cal1 > 100 || cal2 < 0 || cal2 > 100);
-		reader.close();
+		
 		Reporter.log("El promedio de las calificaciones es: " + (cal1 + cal2) / 2, true);
 		double resultado = resultadoPromedio(cal1, cal2);
 		calcularPromedio(resultado);
@@ -97,7 +96,7 @@ public class promedioDeCalificaciones {
 	}// CalcularPromedioRetorno
 
 	public double resultadoPromedio(double num1, double num2) {
-		return (num1 + num2 / 2);
+		return (num1 + num2) / 2;
 	}
 
 }
