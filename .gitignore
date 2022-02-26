@@ -25,3 +25,7 @@ hs_err_pid*
 *.exe
 
 .gitignore.bak
+*execution_results
+*.settings
+.classpath
+/bin/
