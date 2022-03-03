@@ -1,6 +1,5 @@
 package javaBasics;
 
-import org.testng.annotations.Test;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
 
@@ -27,14 +26,14 @@ public class HolaMundo {
 	@Test(priority=1)
 	public void typeOfVariables() {
 		int numero1 = 10;
-		char letra = 's';
-		float numeroDecimail = 10.5f;
-		double numeroGrande = 10.2387492387;
-		boolean flag = true;
-		String nombre = "Nohemi";
-		Boolean flag2=false;
-		Double numeroGrande2 = 20.872937129379812738;
-		int numero2;
+//		char letra = 's';
+//		float numeroDecimail = 10.5f;
+//		double numeroGrande = 10.2387492387;
+//		boolean flag = true;
+//		String nombre = "Nohemi";
+//		Boolean flag2=false;
+//		Double numeroGrande2 = 20.872937129379812738;
+//		int numero2;
 		sumatoria = numero1 + sumatoria;
 		Reporter.log("La sumatoria es: " + sumatoria,true);
 		Reporter.log("El valor de la variable: " + numero1,true);

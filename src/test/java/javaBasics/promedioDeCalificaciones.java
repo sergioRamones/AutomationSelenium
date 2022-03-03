@@ -1,9 +1,9 @@
 package javaBasics;
 
-import org.testng.annotations.Test;
 import java.util.Scanner;
 
 import org.testng.Reporter;
+import org.testng.annotations.Test;
 
 public class promedioDeCalificaciones {
 
@@ -51,7 +51,7 @@ public class promedioDeCalificaciones {
 		calcularPromedio(resultado);
 		double result = calcularPromedioRetorno(87);
 		Reporter.log("El valor de retorno es: " + result, true);
-
+		reader.close();
 	}// Por Teclado
 
 	public void calcularPromedio(double resultado) {
