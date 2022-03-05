@@ -1,6 +1,5 @@
 package javaBasics;
 
-import org.testng.annotations.Test;
 import java.util.Scanner;
 
 import org.testng.Reporter;
