@@ -26,6 +26,8 @@ public class TestVehiculo {
 		
 		
 		
+		
+		
 	}//end datos
 	
 	
@@ -36,6 +38,7 @@ public class TestVehiculo {
 		misVehiculos[1] = new VehiculoDeportivo("LKC-674","Audi","2022",8);
 		misVehiculos[2] = new VehiculoFurgoneta("OPR-5869","Mercedez benz","2019",500);
 		misVehiculos[3] = new VehiculoTurismo(3,"WER-345","Ferrari","1980");
+		
 		
 		
 		for(Vehiculo coche: misVehiculos) {
