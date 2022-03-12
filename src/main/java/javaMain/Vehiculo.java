@@ -6,10 +6,11 @@ public class Vehiculo {
 	private String marca;
 	private String modelo;
 	
+	
 	/**
 	 * @Description Constructor de Vehiculo
 	 * @author sramones
-	 * @date 09/03/2022
+	 * @date 12/03/2022
 	 * @param String, String String
 	 */
 	public Vehiculo(String matricula, String marca, String modelo) {
@@ -18,12 +19,14 @@ public class Vehiculo {
 		this.modelo = modelo;
 	}
 
+
 	/**
 	 * @return the matricula
 	 */
 	public String getMatricula() {
 		return matricula;
 	}
+
 
 	/**
 	 * @return the marca
@@ -32,12 +35,14 @@ public class Vehiculo {
 		return marca;
 	}
 
+
 	/**
 	 * @return the modelo
 	 */
 	public String getModelo() {
 		return modelo;
 	}
+
 
 	/**
 	 * @param matricula the matricula to set
@@ -46,12 +51,14 @@ public class Vehiculo {
 		this.matricula = matricula;
 	}
 
+
 	/**
 	 * @param marca the marca to set
 	 */
 	public void setMarca(String marca) {
 		this.marca = marca;
 	}
+
 
 	/**
 	 * @param modelo the modelo to set
@@ -62,18 +69,15 @@ public class Vehiculo {
 	
 	
 	/**
-	 * @Description Constructor de Vehiculo
+	 * @Description Mostrar datos del Vehiculo
 	 * @author sramones
-	 * @date 09/03/2022
-	 * @param String, String String
+	 * @date 12/03/2022
+	 * @param N/A
 	 */
 	public String mostrarDatosDeVehiculo() {
-		return "Matricula :" + getMatricula()+ "\nMarca : " +getMarca() + "\nModelo: " + getModelo();
+		return "Matricula: "+getMatricula() + "\nMarca: " + getMarca() + "\nModelo: " + getModelo();
 	}
 	
 	
-	
-	
-	
-	
-}
+
+}//end class
