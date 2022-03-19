@@ -11,6 +11,8 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
 
@@ -109,7 +111,14 @@ public class PrimerScript {
 		WebElement login = driver.findElement(By.cssSelector("#btnLogin"));
 		
 		login.click();
-		System.out.println(OSName);
+		
+		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(30));
+//		WebElement test = driver.findElement(link_welcome);		
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("welcome")));
+		
+	
+		
+		
 	}
 	
 	public WebDriver chromeDriverConnection() {
@@ -143,7 +152,7 @@ public class PrimerScript {
 		option.addArguments("--start-maximized");
 		option.addArguments("--incognito");
 		driver = new FirefoxDriver(option);
-		driver.manage().timeouts().implicitlyWait(Duration.ofMillis(100000));
+		driver.manage().timeouts().implicitlyWait(Duration.ofMillis(600));
 		
 		return driver;
 	}
