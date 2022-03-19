@@ -75,6 +75,12 @@
 			<version>7.5</version>
 			<scope>test</scope>
 		</dependency>
-
+		<!-- SLF4 library-->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-nop</artifactId>
+			<version>1.7.25</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 </project>
