@@ -38,7 +38,7 @@ public class Leave extends Base {
 		selectDropDownByVisibleText(dp_leaveType,leaveType);
 		type(fromDate,txt_fromDate);
 		type(toDate,txt_toDate);
-		click(txt_employeeName);
+		click(text_header);
 		selectDropDownByVisibleText(dp_partialDays,"None");
 		type("This is an Autoamted test",txt_comments);
 		takeScreenShot();
