@@ -61,7 +61,7 @@ public class Base {
 	 * @exception
 	 **/
 	public Base() {
-
+			
 	}
 
 	/**
@@ -278,6 +278,20 @@ public class Base {
 		reporter("El texto obtenido es", text);
 		return text;
 	}
+	
+	/**
+	 * @Description Obtener texto por locator
+	 * @author sramones
+	 * @Date 01/03/2022
+	 * @param By
+	 * @return String
+	 * @exception
+	 **/
+	public String getText(WebElement element) {
+		String text = element.getText();
+		reporter("El texto obtenido es", text);
+		return text;
+	}
 
 	/**
 	 * @Description hacer click en locator.
@@ -293,6 +307,26 @@ public class Base {
 
 			highlighElement(locator);
 			findElement(locator).click();
+		} catch (Exception e) {
+			Assert.fail("Web Element <b> was not clicked </b> text are not matching");
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * @Description hacer click en locator.
+	 * @author sramones
+	 * @Date 01/03/2022
+	 * @param By
+	 * @return N/A
+	 * @exception
+	 **/
+	public void click(WebElement element) {
+		try {
+			reporter("Web Element was clicked");
+
+			highlighElement(element);
+			element.click();
 		} catch (Exception e) {
 			Assert.fail("Web Element <b> was not clicked </b> text are not matching");
 			e.printStackTrace();
@@ -337,6 +371,21 @@ public class Base {
 		findElement(locator).sendKeys(inputText);
 		reporter("Fue ingresado", inputText);
 	}
+	
+	/**
+	 * @Description Escribir texto en web element
+	 * @author sramones
+	 * @Date 01/03/2022
+	 * @param String, By
+	 * @return N/A
+	 * @exception
+	 **/
+	public void type(String inputText, WebElement element) {
+		highlighElement(element);
+		element.clear();
+		element.sendKeys(inputText);
+		reporter("Fue ingresado", inputText);
+	}
 
 	/**
 	 * @Description Esperar un webElement con timeout
@@ -349,6 +398,20 @@ public class Base {
 	public void verifyElementIsPresent(By locator) {
 		WebDriverWait	wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
+		reporter("El elemento existe");
+	}
+	
+	/**
+	 * @Description Esperar un webElement con timeout
+	 * @author sramones
+	 * @Date 01/03/2022
+	 * @param By
+	 * @return N/A
+	 * @exception
+	 **/
+	public void verifyElementIsPresent(WebElement element) {
+		WebDriverWait	wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.visibilityOfAllElements(element));
 		reporter("El elemento existe");
 	}
 
@@ -607,7 +670,7 @@ public class Base {
 	 * @return JsonNode
 	 * @implNote nodeTree.path("fieldName").asText()
 	 */
-	public static JsonNode readJsonFileByNode(String jsonpath, String nodeName) {
+	public JsonNode readJsonFileByNode(String jsonpath, String nodeName) {
 		JsonNode nodeTree = null;
 		try {
 			ObjectMapper mapper = new ObjectMapper();
@@ -633,7 +696,7 @@ public class Base {
 	 * @return JsonNode
 	 * @implNote nodeTree.path("fieldName").asText()
 	 */
-	public static JsonNode readJsonFile(String jsonpath) {
+	public JsonNode readJsonFile(String jsonpath) {
 		JsonNode root = null;
 		try {
 			ObjectMapper mapper = new ObjectMapper();
@@ -662,7 +725,7 @@ public class Base {
 	public String getDate(int amountDays) {
 
 		Date myDate = new Date();
-		DateFormat df = new SimpleDateFormat("MM/dd/YYYY");// ("YYYY-MM-dd");
+		DateFormat df = new SimpleDateFormat("YYYY-MM-dd");// ("YYYY-MM-dd"); MM/dd/YYYY
 
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(myDate);
@@ -906,6 +969,22 @@ public class Base {
 	 **/
 	public void highlighElement(By locator) {
 		WebElement element = findElement(locator);
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", element);
+		sleep(500);
+		js.executeScript("arguments[0].setAttribute('style','border: solid 2px white');", element);
+	}
+	
+	/**
+	 * @throws Exception
+	 * @Description wait until element disappear
+	 * @Author Sergio Ramones
+	 * @Date 20-OCT-2021
+	 * @Parameter WebElement
+	 * @return boolean
+	 *
+	 **/
+	public void highlighElement(WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", element);
 		sleep(500);

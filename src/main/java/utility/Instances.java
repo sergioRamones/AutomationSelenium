@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 import orangeHRM.Leave;
 import orangeHRM.Login;
+import orangeHRM.LoginPageFactory;
 import orangeHRM.Menu;
 
 public class Instances {
@@ -12,6 +13,7 @@ public class Instances {
 	Login login;
 	Menu menu;
 	Base base;
+	LoginPageFactory loginFac;
 	
 	public Instances(WebDriver driver) {
 		this.driver=driver;
@@ -19,6 +21,8 @@ public class Instances {
 		login = new Login(driver);
 		menu = new Menu(driver);
 		base = new Base(driver);
+		loginFac = new LoginPageFactory(driver);
+
 	}
 	
 	public Instances() {
@@ -39,6 +43,10 @@ public class Instances {
 	
 	public Base getBase() {
 		return base;
+	}
+	
+	public LoginPageFactory getLoginFac() {
+		return loginFac;
 	}
 
 }
