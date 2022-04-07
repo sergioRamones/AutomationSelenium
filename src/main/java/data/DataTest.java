@@ -74,6 +74,17 @@ public class DataTest {
 		return users;
 	}
 	
+	@DataProvider(name="user")
+	public Object[][] getUserAndPassword(){
+		Object [][] users = new Object[1][2];
+		
+		users[0][0] = "Admin";
+		users[0][1] = "admin123";
+	
+		
+		return users;
+	}
+	
 	
 	@DataProvider(name="usersJSON")
 	public Object[][] getUsersAndPasswordJSON(){
