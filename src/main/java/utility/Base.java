@@ -2,13 +2,17 @@ package utility;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -53,11 +57,11 @@ public class Base {
 	public static Instances page = new Instances();
 
 	/**
-	 * @Description get Operating system name
+	 * @Description Constructor without parameter
 	 * @author sramones
 	 * @Date 01/03/2022
 	 * @param N/A
-	 * @return String
+	 * @return N/A
 	 * @exception
 	 **/
 	public Base() {
@@ -65,11 +69,11 @@ public class Base {
 	}
 
 	/**
-	 * @Description get Operating system name
+	 * @Description Constructor with parameter
 	 * @author sramones
 	 * @Date 01/03/2022
-	 * @param N/A
-	 * @return String
+	 * @param WebDriver
+	 * @return N/A
 	 * @exception
 	 **/
 	public Base(WebDriver driver) {
@@ -77,11 +81,11 @@ public class Base {
 	}
 
 	/**
-	 * @Description get Operating system name
+	 * @Description set driver
 	 * @author sramones
 	 * @Date 01/03/2022
-	 * @param N/A
-	 * @return String
+	 * @param WebDriver
+	 * @return N/A
 	 * @exception
 	 **/
 	public void setDriver(WebDriver driver) {
@@ -93,7 +97,7 @@ public class Base {
 	 * @author sramones
 	 * @Date 01/03/2022
 	 * @param N/A
-	 * @return String
+	 * @return WebDriver
 	 * @exception
 	 **/
 	public WebDriver getDriver() {
@@ -105,7 +109,7 @@ public class Base {
 	 * @author sramones
 	 * @Date 01/03/2022
 	 * @param N/A
-	 * @return String
+	 * @return N/A
 	 * @exception
 	 **/
 	public String getOSName() {
@@ -121,11 +125,11 @@ public class Base {
 	}
 
 	/**
-	 * @Description get Operating system name
+	 * @Description set path according to operating system name
 	 * @author sramones
 	 * @Date 01/03/2022
 	 * @param N/A
-	 * @return String
+	 * @return N/A
 	 * @exception
 	 **/
 	public void setDriverPaths() {
@@ -149,11 +153,11 @@ public class Base {
 	}
 
 	/**
-	 * @Description get Operating system name
+	 * @Description initialize Chrome driver 
 	 * @author sramones
 	 * @Date 01/03/2022
 	 * @param N/A
-	 * @return String
+	 * @return WebDriver 
 	 * @exception
 	 **/
 	private WebDriver chromeDriverConnection() {
@@ -169,11 +173,11 @@ public class Base {
 	}
 
 	/**
-	 * @Description get Operating system name
+	 * @Description initialize edge driver 
 	 * @author sramones
 	 * @Date 01/03/2022
 	 * @param N/A
-	 * @return String
+	 * @return WebDriver 
 	 * @exception
 	 **/
 	private WebDriver edgeDriverConnection() {
@@ -189,11 +193,11 @@ public class Base {
 	}
 
 	/**
-	 * @Description get Operating system name
+	 * @Description initialize firefox driver 
 	 * @author sramones
 	 * @Date 01/03/2022
 	 * @param N/A
-	 * @return String
+	 * @return WebDriver 
 	 * @exception
 	 **/
 	private WebDriver geckoDriverConnection() {
@@ -209,11 +213,11 @@ public class Base {
 	}
 
 	/**
-	 * @Description get Operating system name
+	 * @Description Open browser
 	 * @author sramones
 	 * @Date 01/03/2022
-	 * @param N/A
-	 * @return String
+	 * @param String, ITestContext
+	 * @return WebDriver
 	 * @exception
 	 **/
 	public WebDriver openBrowser(String browserName, ITestContext context) {
@@ -990,4 +994,61 @@ public class Base {
 		sleep(500);
 		js.executeScript("arguments[0].setAttribute('style','border: solid 2px white');", element);
 	}
+	
+	/**
+	 * @throws Exception
+	 * @Description verify links in a web page
+	 * @Author Sergio Ramones
+	 * @Date 20-OCT-2021
+	 * @Parameter By
+	 * @return N/A
+	 *
+	 **/
+	public void checkPageLinks(By locator) {
+		List<WebElement> links = findElements(locator);
+		String url="";
+		List<String> brokenLinks = new ArrayList<String>();
+		List<String> validLinks = new ArrayList<String>();
+		
+		HttpURLConnection httpConnection = null;
+		int responseCode = 200;
+		Iterator<WebElement> it = links.iterator();
+		
+		while(it.hasNext()) {
+			url = it.next().getAttribute("href");
+			if(url==null || url.isEmpty()) {
+				reporter(url + " URL is not configured or is empty");
+				continue;
+			}//end if
+			try {
+				httpConnection = (HttpURLConnection)(new URL(url).openConnection());
+				httpConnection.setRequestMethod("HEAD");
+				httpConnection.connect();
+				responseCode = httpConnection.getResponseCode();
+				
+				if(responseCode>=400) {
+					reporter("ERROR BRONKEN LINK: --> "+ url);
+					reporter("STATUS CODE: --> "+ responseCode);
+					brokenLinks.add(url);
+				}else {
+					reporter("VALID LINK: --> "+ url);
+					reporter("STATUS CODE: --> "+ responseCode);
+					validLinks.add(url);
+				}
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}//end while
+		
+		reporter("VALID LINKS: --> "+validLinks.size());
+		reporter("INVALID LINKS: --> "+brokenLinks.size());
+		
+		if(brokenLinks.size()>0) {
+			for(String link :brokenLinks) {
+				reporter(link);
+			}
+		}
+	}//checkPageLinks
+	
 }//end class
