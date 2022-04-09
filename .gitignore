@@ -29,4 +29,11 @@ hs_err_pid*
 *.settings
 .classpath
 /bin/
+
 *test-output
+
+chromedriver/chromedriver
+geckodriver/geckodriver
+msedgedriver/msedgedriver
+.DS_Store
+
