@@ -1006,49 +1006,60 @@ public class Base {
 	 **/
 	public void checkPageLinks(By locator) {
 		List<WebElement> links = findElements(locator);
-		String url="";
-		List<String> brokenLinks = new ArrayList<String>();
 		List<String> validLinks = new ArrayList<String>();
+		List<String> brokenLinks = new ArrayList<String>();
+		String url = "";
 		
-		HttpURLConnection httpConnection = null;
+		HttpURLConnection httpConnection= null;
 		int responseCode = 200;
+		
 		Iterator<WebElement> it = links.iterator();
 		
 		while(it.hasNext()) {
 			url = it.next().getAttribute("href");
+			
 			if(url==null || url.isEmpty()) {
-				reporter(url + " URL is not configured or is empty");
+				reporter(url+ " URL is not configured or is Empty");
 				continue;
-			}//end if
+			}
+			
 			try {
-				httpConnection = (HttpURLConnection)(new URL(url).openConnection());
-				httpConnection.setRequestMethod("HEAD");
-				httpConnection.connect();
-				responseCode = httpConnection.getResponseCode();
+					httpConnection = (HttpURLConnection)(new URL(url).openConnection());
+					httpConnection.setRequestMethod("HEAD");
+					httpConnection.connect();
+					responseCode = httpConnection.getResponseCode();
+					
+					if(responseCode>=400) {
+						reporter("ERROR BROKEN LINK: --> "+ url);
+						reporter("STATUS CODE: -->" + responseCode);
+						brokenLinks.add(url);
+					}else {
+						reporter("VALID LINK; --> "+ url);
+						reporter("STATUS CODE: -->" + responseCode);
+						validLinks.add(url);
+					}
 				
-				if(responseCode>=400) {
-					reporter("ERROR BRONKEN LINK: --> "+ url);
-					reporter("STATUS CODE: --> "+ responseCode);
-					brokenLinks.add(url);
-				}else {
-					reporter("VALID LINK: --> "+ url);
-					reporter("STATUS CODE: --> "+ responseCode);
-					validLinks.add(url);
-				}
+				
 				
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
+			
 		}//end while
 		
-		reporter("VALID LINKS: --> "+validLinks.size());
-		reporter("INVALID LINKS: --> "+brokenLinks.size());
+
+		reporter("BROKEN LINK: --> "+ brokenLinks.size());
+		reporter("VALID LINK: --> "+ validLinks.size());
+		
 		
 		if(brokenLinks.size()>0) {
-			for(String link :brokenLinks) {
+			for(String link : brokenLinks) {
 				reporter(link);
 			}
 		}
+		
+		
+ 	
 	}//checkPageLinks
 	
 }//end class
