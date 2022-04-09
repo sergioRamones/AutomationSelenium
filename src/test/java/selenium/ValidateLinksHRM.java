@@ -18,7 +18,7 @@ public class ValidateLinksHRM {
 	
 	@Parameters(value= {"browser"})
 	@BeforeTest(groups= {"smoke", "regression","vacaciones"})
-	public void initTest(ITestContext context, @Optional("edge") String browser) {
+	public void initTest(ITestContext context, @Optional("chrome") String browser) {
 		Base.page.getBase().openBrowser(browser, context);
 		Base.page.getBase().openUrl(url);
 	}
